@@ -16,7 +16,7 @@ RoastLearner requires the installation of Python 3.12 for Windows along with sev
 
 #### Install pyAudioAnalysis and development libraries:
 * The latest versons of pyAudioAnalysis have all of the required Python libraries that we will need included in a "requirements.txt" file.  Therefore, we will download and install pyAudioAnalysis next.
-* Open an admin command prompt or PowerShell session
+* Open an admin command prompt or PowerShell session.
 * You'll likely start in C:\WINDOWS\system32, so let's head over to the default Python scripts folder before we begin:
 
 ```
@@ -58,7 +58,7 @@ Finally, test the installation by running an analysis against the included test 
 ```
 cd "C:\Program Files\Python312\Scripts\pyAudioAnalysis\pyAudioAnalysis"
 python audioAnalysis.py fileChromagram -i data/doremi.wav
-'''
+```
 
 If everything worked correctly the script should open a window that looks something like this:
 

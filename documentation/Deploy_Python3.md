@@ -65,4 +65,4 @@ If everything worked correctly the script should open a window that looks someth
 
 ![Successful example output](images/fileChromagram.png?raw=true "Successful example output")
 
-Great! Now we can move on to [Installing RoastLearner](documentation/Install_RoastLearner.md#RoastLearner-Installation)!
+Great! Now we can move on to [Installing RoastLearner](Install_RoastLearner.md#RoastLearner-Installation)!

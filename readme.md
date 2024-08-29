@@ -1,6 +1,6 @@
 # [RoastLearner](#RoastLearner)
 
-### Updated fork
+### Updated Fork
 First off, the majority of credit for this forked repository is due to [aderusha](https://github.com/aderusha) and their excellent work creating the original version of this coffee roasting listener.  I have simply forked the original work and updated where needed to run on modern Windows computers using Python3.12 instead of the original (deprecated) Python2.7.  A few of the installation processes are a bit simpler, mostly with installing the required Python modules, which are included in the excellent [PyAudioAnalysis](https://github.com/tyiannak/pyAudioAnalysis) installation. 
 
 Feel free to open issues or pull requests, and I will do my best to incorporate and address bugs.  I am by no means a software developer and my programming skills are novice, at best.  This is just a hobby for me, so apologies in advance for errors.  

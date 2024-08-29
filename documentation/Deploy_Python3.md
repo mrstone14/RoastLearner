@@ -1,5 +1,5 @@
 # [Python Deployment for RoastLearner](#Python-Deployment-for-RoastLearner)
-RoastLearner requires the installation of Python 3.12 for Windows along with several additional modules in order to execute the [PyAudioAnalysis](https://github.com/tyiannak/pyAudioAnalysis) scripts.  The latest versions of pyAudioAnalysis include the requirements.txt file needed to install the majority of the additional modules.  FFMPEG installation is also suggested to eliminate annoying error messages.
+RoastLearner requires the installation of Python 3.12 for Windows along with several additional modules in order to execute the [PyAudioAnalysis](https://github.com/tyiannak/pyAudioAnalysis) scripts.  The latest versions of pyAudioAnalysis include the "requirements.txt" file needed to install the majority of the additional modules.  FFMPEG installation is also suggested to eliminate annoying error messages.
 
 #### Download and install the development environment tools:
 
@@ -15,7 +15,7 @@ RoastLearner requires the installation of Python 3.12 for Windows along with sev
     * Click "OK" on all the open windows and FFMPEG will be good to go.
 
 #### Install pyAudioAnalysis and development libraries:
-* The latest versons of pyAudioAnalysis have all of the required Python libraries that we will need included in a "requirements.txt" file.  Therefore, we will download and install pyAudioAnalysis next.
+* The latest versons of pyAudioAnalysis has all of the required Python libraries that we will need included in a "requirements.txt" file.  Therefore, we will download and install pyAudioAnalysis next.
 * Open an admin command prompt or PowerShell session.
 * You'll likely start in C:\WINDOWS\system32, so let's head over to the default Python scripts folder before we begin:
 
@@ -46,14 +46,15 @@ cd "C:\Program Files\Python312\scripts\pyAudioAnalysis"
 ```
 pip install -r ./requirements.txt
 ```
+If you get an error on this step or the one below, make sure you ran your command prompt/PowerShell session as admin!
 
 * Install pyAudioAnalysis:
 
 ```
-pip install -e
+pip install -e .
 ```
 
-Finally, test the installation by running an analysis against the included test data:
+* Finally, test the installation by running an analysis against the included test data:
 
 ```
 cd "C:\Program Files\Python312\Scripts\pyAudioAnalysis\pyAudioAnalysis"
@@ -63,3 +64,5 @@ python audioAnalysis.py fileChromagram -i data/doremi.wav
 If everything worked correctly the script should open a window that looks something like this:
 
 ![Successful example output](images/fileChromagram.png?raw=true "Successful example output")
+
+Great! Now we can move on to [Installing RoastLearner](documentation/Install_RoastLearner.md#RoastLearner-Installation)!

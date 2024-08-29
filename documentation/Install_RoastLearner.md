@@ -32,3 +32,5 @@ There are 5 scripts involved in this process:
 ![Configure_Alarms](images/Configure_Alarms.png?raw=true "Configure_Alarms")
 2. One alarm will run at roast start (I had to set this to run at 1 second after the event to get it to start reliably).  This calls our `start_recording.cmd` script to capture audio and send it to our classifiers.
 3. The second alarm will run after DROP to call `stop_recording.cmd`.
+
+Excellent, we're almost there! Now we can move on to the fun part:  [Training RoastLearer](documentation/Train_RoastLearner.md#Training-RoastLearner)

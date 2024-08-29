@@ -17,7 +17,7 @@ There are 5 scripts involved in this process:
 
 ### [Software installation](#Software-installation)
 1. [Install Artisan](https://github.com/artisan-roaster-scope/artisan/blob/master/wiki/Installation.md) to the default location.
-2. [Install Python3, our required modules, and the PyAudioAnalysis libraries](documentation/Deploy_Python3.md).
+2. [Install Python3, our required modules, and the PyAudioAnalysis libraries](Deploy_Python3.md).
 3. Download the code presented here and execute "install.cmd" to deploy the required scripts, executables, and folders.
 4. Launch Artisan for Windows and [configure it to talk to your roaster](https://github.com/artisan-roaster-scope/artisan/blob/master/wiki/Installation.md#device-configuration).
 

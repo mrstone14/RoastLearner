@@ -8,11 +8,11 @@ set artisanDir=C:\Program Files\Artisan
 :: The scripts must live in a folder underneath %artisanDir%
 set RoastLearnerDir=%artisanDir%\scripts\RoastLearner
 
-:: Python 27 must be installed in the following directory for the time being
-set py27Dir=C:\Python27
+:: Python 3 must be installed in the following directory for the time being
+set py3dir=C:\Program Files\Python312
 
 :: PyAudioAnalysis must be installed in the following directory for the time being
-set pyAudAnDir=%py27Dir%\scripts\PyAudioAnalysis
+set pyAudAnDir=%py3dir%\scripts\pyAudioAnalysis\pyAudioAnalysis
 
 :: Recordings and trained classifiers must be installed in the following directory
 set recordingDir=%LOCALAPPDATA%\RoastLearner
@@ -53,6 +53,7 @@ exit /b
 :gotAdmin
 pushd "%CD%"
 cd /d "%~dp0"
+echo Working Directory: "%~dp0"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -69,17 +70,17 @@ if not exist "%artisanDir%\artisan.exe" (
   goto end
 )
 
-:: Check for Python 2.7 install
-if not exist "%py27Dir%\python.exe" (
-  echo FATAL: Python 2.7 installation not found under %py27Dir%.
-  echo Please install Python 2.7 for Windows under the default
+:: Check for Python 3 install
+if not exist "%py3dir%\python.exe" (
+  echo FATAL: Python 3 installation not found under %py3dir%.
+  echo Please install Python 3 for Windows under the default
   echo folder.  Refer to the installation guide for details.
   echo.
   pause
   goto end
 )
 
-:: Check for installation of PyAudioAnalysis under py27Dir\scripts\PyAudioAnalysis
+:: Check for installation of PyAudioAnalysis under py3dir\scripts\pyAudioAnalysis\pyAudioAnalysis
 if not exist "%pyAudAnDir%\audioAnalysis.py" (
   echo FATAL: pyAudioAnalysis not found at "%pyAudAnDir%\audioAnalysis.py"
   echo Please install pyAudioAnalysis and required libraries.
@@ -90,7 +91,10 @@ if not exist "%pyAudAnDir%\audioAnalysis.py" (
 )
 
 :: Check for our install dir, if it's not there, attempt to create it
-if not exist "%RoastLearnerDir%" md "%RoastLearnerDir%"
+if not exist "%RoastLearnerDir%" (
+  echo No RoastLearner directory, creating...
+  md "%RoastLearnerDir%"
+)
 :: Check again and fail if we can't access the directory for some reason
 if not exist "%RoastLearnerDir%" (
   echo FATAL: Failed to create installation directory: "%RoastLearnerDir%"
@@ -98,9 +102,14 @@ if not exist "%RoastLearnerDir%" (
   pause
   goto end
 )
+echo Success!
+echo.
 
 :: Check for our recording dir, if it's not there, attempt to create it
-if not exist "%recordingDir%" md "%recordingDir%"
+if not exist "%recordingDir%" (
+  echo No recording directory, creating...
+  md "%recordingDir%"
+)
 :: Check again and fail if we can't access the directory for some reason
 if not exist "%recordingDir%" (
   echo FATAL: Failed to create recording directory: "%recordingDir%"
@@ -108,6 +117,8 @@ if not exist "%recordingDir%" (
   pause
   goto end
 )
+echo Success!
+echo.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Installation
@@ -121,6 +132,8 @@ if errorlevel 1 (
   pause
   goto end
 )
+echo Success!
+echo.
 
 :: Copy recording folder structure to %recordingDir%
 echo Creating recording folders in "%recordingDir%"
@@ -131,22 +144,28 @@ if errorlevel 1 (
   pause
   goto end
 )
+echo Success!
+echo.
 
-:: Create desktop shortcut to recordings folder
+echo Create desktop shortcut to recordings folder
 set tempLnkScript="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
 echo Set oWS = WScript.CreateObject("WScript.Shell") >> %tempLnkScript%
-echo sLinkFile = "%USERPROFILE%\Desktop\RoastLearner Recordings.lnk" >> %tempLnkScript%
+echo sLinkFile = "%USERPROFILE%\OneDrive\Desktop\RoastLearner Recordings.lnk" >> %tempLnkScript%
 echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %tempLnkScript%
 echo oLink.TargetPath = "%WINDIR%\Explorer.exe" >> %tempLnkScript%
 echo oLink.Arguments ="%recordingDir%" >> %tempLnkScript%
 echo oLink.Save >> %tempLnkScript%
 cscript /nologo %tempLnkScript%
 del %tempLnkScript%
-if not exist "%USERPROFILE%\Desktop\RoastLearner Recordings.lnk" (
+if not exist "%USERPROFILE%\OneDrive\Desktop\RoastLearner Recordings.lnk" (
   echo WARNING: Failed to create desktop shortcut to: %recordingDir%
+  pause
+  goto end
 )
+echo Success!
+echo.
 
-:: Create shortcut to re-train the classifiers
+echo Create shortcut to re-train the classifiers
 set tempLnkScript="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
 echo Set oWS = WScript.CreateObject("WScript.Shell") >> %tempLnkScript%
 echo sLinkFile = "%recordingDir%\Re-train Classifiers.lnk" >> %tempLnkScript%
@@ -156,10 +175,15 @@ echo oLink.WorkingDirectory ="%RoastLearnerDir%" >> %tempLnkScript%
 echo oLink.Save >> %tempLnkScript%
 cscript /nologo %tempLnkScript%
 del %tempLnkScript%
-if not exist "%USERPROFILE%\Desktop\RoastLearner Recordings.lnk" (
+if not exist "%USERPROFILE%\OneDrive\Desktop\RoastLearner Recordings.lnk" (
   echo WARNING: Failed to create desktop shortcut to: %recordingDir%
+  pause
+  goto end
 )
+echo Success!
+echo.
 
+echo Installation Status:
 echo SUCCESS: deployed RoastLearner to "%RoastLearnerDir%"
 pause
 goto end

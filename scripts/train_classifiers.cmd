@@ -5,21 +5,21 @@ setlocal disableDelayedExpansion
 :: path to RoastLearner installation
 set RoastLearnerDir=%~dp0
 :: path to Python executable
-set py27dir=C:\Python27
+set py3dir=C:\Program Files\Python312
 :: Path to recordings
 set recordingDir=%LOCALAPPDATA%\RoastLearner
 
-:: Check for default installation of Python 2.7
-set py27exe=%py27dir%\python.exe
-if not exist "%py27exe%" (
-  echo FATAL: Python 2.7 interpreter not found at "%py27exe%".
-  echo Please install Python 2.7 for Windows under the default
+:: Check for default installation of Python 3
+set py3exe=%py3dir%\python.exe
+if not exist "%py3exe%" (
+  echo FATAL: Python 3 interpreter not found at "%py3exe%".
+  echo Please install Python 3 for Windows under the default
   echo folder.  Refer to the installation guide for details.
   goto end
 )
 
-:: Check for installation of PyAudioAnalysis under py27dir\scripts\PyAudioAnalysis
-set pyAudioAnalysis=%py27dir%\Scripts\pyAudioAnalysis
+:: Check for installation of PyAudioAnalysis under py3dir\scripts\pyAudioAnalysis\pyAudioAnalysis
+set pyAudioAnalysis=%py3dir%\Scripts\pyAudioAnalysis\pyAudioAnalysis
 if not exist "%pyAudioAnalysis%\audioAnalysis.py" (
   echo FATAL: AudioAnalysis not found at "%pyAudioAnalysis%\audioAnalysis.py"
   echo Please install pyAudioAnalysis and required libraries.
@@ -55,8 +55,8 @@ move RoastLearnerKNN*.* "%backup_folder%"
 set class_list=
 for /D %%z in ("..\classified_recordings"\*) do call set class_list=%%class_list%% "..\classified_recordings\%%z"
 
-%py27exe% "%pyAudioAnalysis%\audioAnalysis.py" trainClassifier -i %class_list% --method svm -o RoastLearnerSVM
-%py27exe% "%pyAudioAnalysis%\audioAnalysis.py" trainClassifier -i %class_list% --method knn -o RoastLearnerKNN
+"%py3exe%" "%pyAudioAnalysis%\audioAnalysis.py" trainClassifier -i %class_list% --method svm -o RoastLearnerSVM
+"%py3exe%" "%pyAudioAnalysis%\audioAnalysis.py" trainClassifier -i %class_list% --method knn -o RoastLearnerKNN
 
 if not exist "RoastLearnerSVM" (
   echo FATAL: Failed to create SVM classifier.  Exiting.

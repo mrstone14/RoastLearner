@@ -54,19 +54,19 @@ set RoastLearnerDir=%~dp0
 :: define our output file
 set file_classifyout=%TEMP%\classify%classifier%-values.txt
 
-set py27dir=C:\Python27
+set py3dir=C:\Program Files\Python312
 
-:: Check for default installation of Python 2.7
-set py27exe=%py27dir%\python.exe
-if not exist "%py27exe%" (
-  echo FATAL: Python 2.7 interpreter not found at "%py27exe%".
-  echo Please install Python 2.7 for Windows under the default
+:: Check for default installation of Python 3
+set py3exe=%py3dir%\python.exe
+if not exist "%py3exe%" (
+  echo FATAL: Python 3 interpreter not found at "%py3exe%".
+  echo Please install Python 3 for Windows under the default
   echo folder.  Refer to the installation guide for details.
   goto end
 )
 
-:: Check for installation of PyAudioAnalysis under py27dir\scripts\PyAudioAnalysis
-set pyAudioAnalysis=%py27dir%\Scripts\pyAudioAnalysis
+:: Check for installation of PyAudioAnalysis under py3dir\scripts\pyAudioAnalysis\pyAudioAnalysis
+set pyAudioAnalysis=%py3dir%\Scripts\pyAudioAnalysis\pyAudioAnalysis
 if not exist "%pyAudioAnalysis%\audioAnalysis.py" (
   echo FATAL: AudioAnalysis not found at "%pyAudioAnalysis%\audioAnalysis.py"
   echo Please install pyAudioAnalysis and required libraries.
@@ -126,7 +126,7 @@ copy /y "%new_recentfile%" "%TempInFile%">NUL
 
 echo Classifying file %new_recentfile%
 
-"%py27exe%" "%pyAudioAnalysis%\audioAnalysis.py" classifyFile -i "%TempInFile%" --model %classifier% --classifier "%TrainedClassifier%">"%TempOutFile%"
+"%py3exe%" "%pyAudioAnalysis%\audioAnalysis.py" classifyFile -i "%TempInFile%" --model %classifier% --classifier "%TrainedClassifier%">"%TempOutFile%"
 
 type "%TempOutFile%"
 for /f "tokens=1,2" %%y in ('findstr /R "^environment" %TempOutFile%') do set class_environment=%%z
